@@ -1,0 +1,13 @@
+{
+	"id": "nodebb-widget-singlepost",
+	"name": "Single Post Widget",
+	"description": "Allows the contents of a post to be displayed as a widget.",
+	"url": "https://github.com/jongarrison/nodebb-widget-singlepost",
+	"library": "./library.js",
+	"hooks": [
+        { "hook": "static:app.load", "method": "staticAppLoad" },
+        { "hook": "filter:widgets.getWidgets", "method": "defineWidgets"},
+        { "hook": "filter:widget.render:singlepost", "method": "renderSinglePostWidget"}
+    ],
+  "templates": "./templates"
+}
