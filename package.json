@@ -4,7 +4,7 @@
   "description": "llows the contents of a post to be displayed as a widget.",
   "main": "library.js",
   "nbbpm": {
-    "compatibility": "^0.8.0"
+    "compatibility": "^0.8.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
