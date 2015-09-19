@@ -26,6 +26,10 @@
 	}
 
 	var	Singlepost = {
+		/**
+		 * We'll need to capture some of the global app objects for use in the widget
+		 * rendering later
+		 */
 		staticAppLoad: function(params, callback) {
 			winston.info("Singlepost - app.load called");
 			app = params.app;
@@ -60,8 +64,11 @@
 			var req = widgetRenderParams.req;
 			var res = widgetRenderParams.res;
 			req.params.topic_id = widgetRenderParams.data.postId;
-			winston.info("widget input id: " + req.params.topic_id);
+			//winston.info("widget input id: " + req.params.topic_id);
 
+			/**
+			 * Create a wrapped response object to intercept the subsequent app rendering of the widget
+			 */
 			var resWrap = {
 				locals: res.locals,
 				render: function(template, data) {
@@ -78,13 +85,17 @@
 				}
 			};
 
+			/**
+			 * Here we need to preemptively load the topic slug, because the topicController gets upset
+			 * if we don't pass that along with the rendering of the topic
+			 */
 			async.waterfall([
 				function(next) {
 					topics.getTopicData([widgetRenderParams.data.postId], next);
 				},
 				function(topic, next) {
 					req.params.slug = topic.slug.replace(/\d+\//g, "");
-					winston.info("Intercepted topic request. topic id: " + req.params.topic_id + " (slug from db): " + req.params.slug);
+					//winston.info("Intercepted topic request. topic id: " + req.params.topic_id + " (slug from db): " + req.params.slug);
 					topicController.get(req, resWrap, finalCallback);
 				}
 			]);
