@@ -59,10 +59,26 @@
 		},
 
 		renderSinglePostWidget: function(widgetRenderParams, finalCallback) {
-			//winston.info("renderSinglePostWidget widgetRenderParams: " + util.inspect(widgetRenderParams), {showHidden: false, depth: 1});
+			winston.info("renderSinglePostWidget widgetRenderParams: " + util.inspect(widgetRenderParams), {showHidden: false, depth: 1});
 
-			var req = widgetRenderParams.req;
-			var res = widgetRenderParams.res;
+			//var req = widgetRenderParams.req;
+			//var res = widgetRenderParams.res;
+
+			var req = {
+						uid: widgetRenderParams.uid,
+						params: {topic_id: '', slug: ''},
+						query: {sort: 'oldest_to_newest'},
+						session: {returnTo: ''}
+
+					};
+			var res = {
+				locals: {},
+				redirect: '',
+				status: function(code) {
+					return {json: ''};
+				}
+			};
+
 			req.params.topic_id = widgetRenderParams.data.postId;
 			//winston.info("widget input id: " + req.params.topic_id);
 
