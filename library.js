@@ -73,7 +73,7 @@
 					};
 			var res = {
 				locals: {},
-				redirect: '',
+				redirect: function(path) {},
 				status: function(code) {
 					return {json: ''};
 				}
