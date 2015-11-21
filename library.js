@@ -75,7 +75,11 @@
 				locals: {},
 				redirect: function(path) {},
 				status: function(code) {
-					return {json: ''};
+					return {
+						render: function(code, data) {
+							winston.info("SinglePostWidget " + code + " redirect intercepted for uid: " + widgetRenderParams.uid + " post.id: " + widgetRenderParams.data.postId)
+						}
+					}
 				}
 			};
 

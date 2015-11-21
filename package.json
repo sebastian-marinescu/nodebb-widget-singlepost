@@ -1,6 +1,6 @@
 {
   "name": "nodebb-widget-singlepost",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Allows the contents of a post to be displayed as a widget.",
   "main": "library.js",
   "nbbpm": {
