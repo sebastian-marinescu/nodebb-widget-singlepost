@@ -71,17 +71,6 @@
 						session: {returnTo: ''}
 
 					};
-			var res = {
-				locals: {},
-				redirect: function(path) {},
-				status: function(code) {
-					return {
-						render: function(code, data) {
-							winston.info("SinglePostWidget " + code + " redirect intercepted for uid: " + widgetRenderParams.uid + " post.id: " + widgetRenderParams.data.postId)
-						}
-					}
-				}
-			};
 
 			req.params.topic_id = widgetRenderParams.data.postId;
 			//winston.info("widget input id: " + req.params.topic_id);
@@ -90,7 +79,15 @@
 			 * Create a wrapped response object to intercept the subsequent app rendering of the widget
 			 */
 			var resWrap = {
-				locals: res.locals,
+				locals: {},
+				redirect: function(path) {},
+				status: function(code) {
+					return {
+						render: function(code, data) {
+							winston.info("SinglePostWidget " + code + " redirect intercepted for uid: " + widgetRenderParams.uid + " post.id: " + widgetRenderParams.data.postId)
+						}
+					}
+				},
 				render: function(template, data) {
 					winston.info("singlePost.render template requested: " + util.inspect(template));
 					winston.info("singlePost tid: " + data.tid);
