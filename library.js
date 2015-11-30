@@ -59,64 +59,74 @@
 		},
 
 		renderSinglePostWidget: function(widgetRenderParams, finalCallback) {
-			winston.info("renderSinglePostWidget widgetRenderParams: " + util.inspect(widgetRenderParams), {showHidden: false, depth: 1});
+			var mockReq;
+			try {
+				/*
+				winston.info("renderSinglePostWidget widgetRenderParams: " + util.inspect(widgetRenderParams), {
+					showHidden: false,
+					depth: 1
+				});
+				*/
 
-			//var req = widgetRenderParams.req;
-			//var res = widgetRenderParams.res;
+				mockReq = {
+					uid: widgetRenderParams.uid,
+					params: {topic_id: '', slug: ''},
+					query: {sort: 'oldest_to_newest'},
+					session: {returnTo: ''}
 
-			var req = {
-						uid: widgetRenderParams.uid,
-						params: {topic_id: '', slug: ''},
-						query: {sort: 'oldest_to_newest'},
-						session: {returnTo: ''}
+				};
 
-					};
+				mockReq.params.topic_id = widgetRenderParams.data.postId;
+				if (widgetRenderParams.data.renderAsUserId) {
+					mockReq.uid = widgetRenderParams.data.renderAsUserId;
+				}
 
-			req.params.topic_id = widgetRenderParams.data.postId;
-			//winston.info("widget input id: " + req.params.topic_id);
-
-			/**
-			 * Create a wrapped response object to intercept the subsequent app rendering of the widget
-			 */
-			var resWrap = {
-				locals: {},
-				redirect: function(path) {},
-				status: function(code) {
-					return {
-						render: function(code, data) {
-							winston.info("SinglePostWidget " + code + " redirect intercepted for uid: " + widgetRenderParams.uid + " post.id: " + widgetRenderParams.data.postId)
+				/**
+				 * Create a wrapped response object to intercept the subsequent app rendering of the widget
+				 */
+				var resWrap = {
+					locals: {},
+					redirect: function (path) {
+					},
+					status: function (code) {
+						return {
+							render: function (code, data) {
+								winston.info("SinglePostWidget " + code + " redirect intercepted for uid: " + widgetRenderParams.uid + " post.id: " + widgetRenderParams.data.postId + " data: " + util.inspect(data))
+							}
 						}
+					},
+					render: function (template, data) {
+						//winston.info("singlePost.render template requested: " + util.inspect(template));
+						winston.info("singlePost tid: " + data.tid);
+						data.postid = data.tid;
+						data.postShowTitle = widgetRenderParams.data.postShowTitle;
+						data.postLinkTitle = widgetRenderParams.data.postLinkTitle;
+						data.postUrl = nconf.get('url') + "/topic/" + data.tid;
+
+						//winston.info("singlePost.render data: " + util.inspect(data, {showHidden: false, depth: 1}));
+						//winston.info("singlePost about to render post id: " + data.postid);
+						app.render("nodebb-widget-singlepost/singlepost", data, finalCallback);
 					}
-				},
-				render: function(template, data) {
-					winston.info("singlePost.render template requested: " + util.inspect(template));
-					winston.info("singlePost tid: " + data.tid);
-					data.postid = data.tid;
-					data.postShowTitle = widgetRenderParams.data.postShowTitle;
-					data.postLinkTitle = widgetRenderParams.data.postLinkTitle;
-					data.postUrl = nconf.get('url') + "/topic/" + data.tid;
+				};
 
-					//winston.info("singlePost.render data: " + util.inspect(data, {showHidden: false, depth: 1}));
-					//winston.info("singlePost about to render post id: " + data.postid);
-					app.render("nodebb-widget-singlepost/singlepost", data, finalCallback);
-				}
-			};
-
-			/**
-			 * Here we need to preemptively load the topic slug, because the topicController gets upset
-			 * if we don't pass that along with the rendering of the topic
-			 */
-			async.waterfall([
-				function(next) {
-					topics.getTopicData([widgetRenderParams.data.postId], next);
-				},
-				function(topic, next) {
-					req.params.slug = topic.slug.replace(/\d+\//g, "");
-					//winston.info("Intercepted topic request. topic id: " + req.params.topic_id + " (slug from db): " + req.params.slug);
-					topicController.get(req, resWrap, finalCallback);
-				}
-			]);
-
+				/**
+				 * Here we need to preemptively load the topic slug, because the topicController gets upset
+				 * if we don't pass that along with the rendering of the topic
+				 */
+				async.waterfall([
+					function (next) {
+						topics.getTopicData([widgetRenderParams.data.postId], next);
+					},
+					function (topic, next) {
+						mockReq.params.slug = topic.slug.replace(/\d+\//g, "");
+						//winston.info("Intercepted topic request. topic id: " + mockReq.params.topic_id + " (slug from db): " + mockReq.params.slug);
+						topicController.get(mockReq, resWrap, finalCallback);
+					}
+				]);
+			} catch (err) {
+				winston.error("Error while rendering single post widget: " + util.inspect(mockReq) + " Error:");
+				winston.error(err);
+			}
 		}
 	};
 
