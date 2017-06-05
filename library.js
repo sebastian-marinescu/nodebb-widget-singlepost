@@ -101,9 +101,9 @@
 						data.postid = data.tid;
 						data.postShowTitle = widgetRenderParams.data.postShowTitle;
 						data.postLinkTitle = widgetRenderParams.data.postLinkTitle;
-						data.postUrl = nconf.get('url') + "/topic/" + data.tid;
+						data.postUrl = "/topic/" + data.slug;
 
-						//winston.info("singlePost.render data: " + util.inspect(data, {showHidden: false, depth: 1}));
+                        //winston.info("singlePost.render data: " + util.inspect(data, {showHidden: false, depth: 1}));
 						//winston.info("singlePost about to render post id: " + data.postid);
 						app.render("nodebb-widget-singlepost/singlepost", data, finalCallback);
 					}
