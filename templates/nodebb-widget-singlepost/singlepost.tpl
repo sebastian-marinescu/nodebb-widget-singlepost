@@ -18,16 +18,6 @@
 
 	<!-- BEGIN posts -->
 	<!-- IF @first -->
-	<!--<div class="poster-avatar hidden-xs">-->
-		<!--<a href="{config.relative_path}/user/{posts.user.userslug}">-->
-			<!--&lt;!&ndash; IF posts.user.picture &ndash;&gt;-->
-			<!--<img class="user-picture" src="{posts.user.picture}" alt="{posts.user.username}" title="{posts.user.username}"/>-->
-			<!--&lt;!&ndash; ELSE &ndash;&gt;-->
-			<!--<div class="user-icon" style="background-color: {posts.user.icon:bgColor};">{posts.user.icon:text}</div>-->
-			<!--&lt;!&ndash; ENDIF posts.user.picture &ndash;&gt;-->
-			<!--<span component="user/status" class="status {posts.user.status}" title="[[global:{posts.user.status}]]"></span>-->
-		<!--</a>-->
-	<!--</div>-->
 
 	<div class="post-header">
 		<a class="pull-left visible-xs user-profile-link" href="{config.relative_path}/user/{posts.user.userslug}">

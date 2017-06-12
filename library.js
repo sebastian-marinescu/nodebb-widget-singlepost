@@ -6,6 +6,7 @@
 			nconf = module.parent.require('nconf'),
 			path = require('path'),
 			topics = module.parent.require('./topics'),
+			plugins = module.parent.require('./plugins'),
 			templates = module.parent.require('templates.js'),
 			fs = require('fs'),
 			util = require('util'),
@@ -103,9 +104,18 @@
 						data.postLinkTitle = widgetRenderParams.data.postLinkTitle;
 						data.postUrl = "/topic/" + data.slug;
 
-                        //winston.info("singlePost.render data: " + util.inspect(data, {showHidden: false, depth: 1}));
-						//winston.info("singlePost about to render post id: " + data.postid);
-						app.render("nodebb-widget-singlepost/singlepost", data, finalCallback);
+                        // Parse the content as post
+                        plugins.fireHook('filter:parse.post', { postData: data.posts[0] }, function(err, parsedData) {
+
+                            // If there is an error or missing data, bail out and log it.
+                            if (err || !parsedData) return console.log("Couldn't parse post data.");
+
+                            data.posts[0] = parsedData.postData;
+
+                            //winston.info("singlePost.render data: " + util.inspect(data, {showHidden: false, depth: 1}));
+                            //winston.info("singlePost about to render post id: " + data.postid);
+                            app.render("nodebb-widget-singlepost/singlepost", data, finalCallback);
+                        });
 					}
 				};
 

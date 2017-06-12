@@ -1,7 +1,7 @@
 {
   "name": "nodebb-widget-singlepost",
-  "version": "0.1.6",
-  "description": "Allows the contents of a post to be displayed as a widget.",
+  "version": "0.1.7",
+  "description": "Allows the contents of a topic's main-post to be displayed as a widget.",
   "main": "library.js",
   "nbbpm": {
     "compatibility": ">=1.0.0 <1.5.0"
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jongarrison/nodebb-widget-singlepost.git"
+    "url": "git+https://github.com/sebastian-marinescu/nodebb-widget-singlepost.git"
   },
   "keywords": [
     "nodebb",
@@ -21,6 +21,7 @@
   ],
   "author": "Jon Garrison",
   "license": "ISC",
+  "private": true,
   "bugs": {
     "url": "https://github.com/jongarrison/nodebb-widget-singlepost/issues"
   },
