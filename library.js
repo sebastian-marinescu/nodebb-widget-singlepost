@@ -45,7 +45,7 @@
 		},
 
 		defineWidgets: function(widgets, callback) {
-			loadWidgetTemplate('./templates/nodebb-widget-singlepost/admin/singlepost.tpl', function(templateData) {
+			loadWidgetTemplate('./templates/admin/singlepost.tpl', function(templateData) {
 				widgets = widgets.concat([
 					{
 						widget: "singlepost",
