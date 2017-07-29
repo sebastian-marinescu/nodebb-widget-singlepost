@@ -14,7 +14,7 @@
 
 	function loadWidgetTemplate(template, next) {
 		winston.info("Loading templateFile: " + template);
-        fs.readFile(path.resolve(__dirname, './public/templates/' + template), function (err, data) {
+        fs.readFile(path.resolve(__dirname, template), function (err, data) {
 			if (err) {
 				console.log(err.message);
 				return next(null, err);
