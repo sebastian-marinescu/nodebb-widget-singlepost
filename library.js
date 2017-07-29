@@ -13,11 +13,8 @@
 			app, router, topicController, controllers, siteUrl;
 
 	function loadWidgetTemplate(template, next) {
-		var __dirname = "./node_modules/nodebb-widget-singlepost";
-		var templateFile = path.resolve(__dirname, template);
-		winston.info("Loading templateFile: " + templateFile);
-
-		fs.readFile(templateFile, function (err, data) {
+		winston.info("Loading templateFile: " + template);
+        fs.readFile(path.resolve(__dirname, './public/templates/' + template), function (err, data) {
 			if (err) {
 				console.log(err.message);
 				return next(null, err);
