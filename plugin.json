@@ -9,5 +9,5 @@
         { "hook": "filter:widgets.getWidgets", "method": "defineWidgets"},
         { "hook": "filter:widget.render:singlepost", "method": "renderSinglePostWidget"}
     ],
-  "templates": "./templates"
+	"templates": "./public/templates"
 }

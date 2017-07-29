@@ -111,7 +111,7 @@
 
                             //winston.info("singlePost.render data: " + util.inspect(data, {showHidden: false, depth: 1}));
                             //winston.info("singlePost about to render post id: " + data.postid);
-                            app.render("nodebb-widget-singlepost/singlepost", data, finalCallback);
+                            app.render("singlepost.tpl", data, finalCallback);
                         });
 					}
 				};
