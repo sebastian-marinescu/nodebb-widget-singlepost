@@ -1,10 +1,10 @@
 {
   "name": "nodebb-widget-singlepost",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "Allows the contents of a topic's main-post to be displayed as a widget.",
   "main": "library.js",
   "nbbpm": {
-    "compatibility": ">=1.0.0 <1.5.0"
+    "compatibility": ">=1.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
