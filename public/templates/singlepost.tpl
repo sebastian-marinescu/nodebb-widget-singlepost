@@ -22,9 +22,9 @@
 	<div class="post-header">
 		<a class="pull-left visible-xs user-profile-link" href="{config.relative_path}/user/{posts.user.userslug}">
 			<!-- IF posts.user.picture -->
-			<img class="post-user-picture" src="{posts.user.picture}" alt="{posts.user.username}" title="{posts.user.username}"/>
+			<img class="avatar avatar-sm post-user-picture" src="{posts.user.picture}" alt="{posts.user.username}" title="{posts.user.username}"/>
 			<!-- ELSE -->
-			<div class="user-icon post-user-picture" style="background-color: {posts.user.icon:bgColor};">{posts.user.icon:text}</div>
+			<div class="avatar avatar-sm user-icon post-user-picture" style="background-color: {posts.user.icon:bgColor};">{posts.user.icon:text}</div>
 			<!-- ENDIF posts.user.picture -->
 		</a>
 
