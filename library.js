@@ -95,7 +95,7 @@
 					},
 					render: function (template, data) {
 						//winston.info("singlePost.render template requested: " + util.inspect(template));
-						winston.info("singlePost tid: " + data.tid);
+						//winston.info("singlePost tid: " + data.tid);
 						data.postid = data.tid;
 						data.postShowTitle = widgetRenderParams.data.postShowTitle;
 						data.postLinkTitle = widgetRenderParams.data.postLinkTitle;
@@ -111,7 +111,9 @@
 
                             //winston.info("singlePost.render data: " + util.inspect(data, {showHidden: false, depth: 1}));
                             //winston.info("singlePost about to render post id: " + data.postid);
-                            app.render("singlepost.tpl", data, finalCallback);
+                            app.render("singlepost.tpl", data, function(err, parsedData) {
+                            	finalCallback(err, { html: parsedData })
+							});
                         });
 					}
 				};
