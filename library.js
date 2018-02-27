@@ -7,7 +7,6 @@
 			path = require('path'),
 			topics = module.parent.require('./topics'),
 			plugins = module.parent.require('./plugins'),
-			templates = module.parent.require('templates.js'),
 			fs = require('fs'),
 			util = require('util'),
 			app, router, topicController, controllers, siteUrl;
