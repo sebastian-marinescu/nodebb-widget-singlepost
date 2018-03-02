@@ -26,22 +26,21 @@
 			<!-- ELSE -->
 			<div class="avatar avatar-sm user-icon post-user-picture" style="background-color: {posts.user.icon:bgColor};">{posts.user.icon:text}</div>
 			<!-- ENDIF posts.user.picture -->
-		</a> &nbsp;
-
+		</a>
 		<strong>
 			<a href="<!-- IF posts.user.userslug -->{config.relative_path}/user/{posts.user.userslug}<!-- ELSE -->#<!-- ENDIF posts.user.userslug -->" itemprop="author" data-username="{posts.user.username}" data-uid="{posts.user.uid}">{posts.user.username}</a>
 		</strong>
 		<!-- IMPORT partials/topic/badge.tpl -->
 		<span class="post-time">
-			<a class="permalink" href="{config.relative_path}/post/{posts.pid}"><span class="timeago" title="{posts.timestampISO}"></span></a>
+			<a class="permalink" href="{config.relative_path}/post/{posts.pid}"><span class="timeago" title="{posts.editedISO}"></span></a>
 		</span>
 	</div>
 
 	<br>
 
-	<span class="widgetSinglePostContent">
-	{posts.content}
-	</span>
+	<div class="widgetSinglePostContent">
+		{posts.content}
+	</div>
 	<!-- ENDIF @first -->
 	<!-- END posts -->
 </div>
